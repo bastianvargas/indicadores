@@ -1,1 +1,1 @@
-from .currency_view import CurrencyView
+from .currency_view import CurrencyView, CurrencyDetailView, PriceView
