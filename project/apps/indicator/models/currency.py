@@ -16,8 +16,7 @@ class Currency(models.Model):
 class Date(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     currency = models.ForeignKey('Currency',on_delete=models.CASCADE)
-    date = models.DateField(auto_now=False, auto_now_add=False)
+    date_currency = models.DateField(auto_now=False, auto_now_add=False)
     value = models.FloatField(default=None)
 
-    def __str__(self):
-        return self.date
+    
