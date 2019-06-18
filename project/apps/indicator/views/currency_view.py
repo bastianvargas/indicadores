@@ -6,6 +6,31 @@ from rest_framework.views import APIView
 from indicator.models import Currency
 from indicator.serializers import CurrencySerializer
 from django.db.models import Q
+# import requests
+# from dateutil.parser import parse
+
+# def LoadDataView(url):
+#     currencies = {'uf': 1977, 'dolar': 1984, 'euro': 1999, 'bitcoin': 2009}
+#     currency = Currency()
+#     for c in currencies.items():
+#         for r in range(c[1], 2020):
+#             response = requests.get('https://{}/api/{}/{}'.format(url, c[0], r))
+#             response_json = response.json()
+#             for resj in response_json['serie']:
+#                 currency_date=resj['fecha'][0:-14]
+#                 currency_price=resj['value']
+#
+#                 currency.code=c[0]
+#                 currency.date=currency_date
+#                 carrency.value=currency_price
+#                 try:
+#                     currency.save()
+#                 except:
+#                     print("Error with save currency object: ", currency)
+#     count_obj = Currency.objects.all()
+#     return count_obj.count()
+    # response = requests.get('https://undefined/api/{tipo_indicador}/{yyyy}')
+    # pass
 
 
 class PriceView(generics.ListCreateAPIView):
