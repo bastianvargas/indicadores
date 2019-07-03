@@ -1,9 +1,9 @@
 from rest_framework import serializers
 
-from indicator.models import Currency
+from indicator.models import Date
 
 
 class CurrencySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Currency
-        fields = '__all__'
+        model = Date
+        fields = ('date_currency', 'value')

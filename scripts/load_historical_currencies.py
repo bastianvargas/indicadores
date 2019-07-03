@@ -7,7 +7,6 @@ import datetime
 
 def run():
     currencies = {'uf': 1977, 'dolar': 1984, 'euro': 1999, 'bitcoin': 2009}
-
     for c in currencies.items():
         currency = Currency()
         currency.code = c[0]

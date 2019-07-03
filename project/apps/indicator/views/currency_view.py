@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from indicator.models import Currency
 from indicator.serializers import CurrencySerializer
 from django.db.models import Q
+from indicator.models import *
 # import requests
 # from dateutil.parser import parse
 
@@ -33,15 +34,15 @@ from django.db.models import Q
     # pass
 
 
-class PriceView(generics.ListCreateAPIView):
-    serializer_class = CurrencySerializer
-    permission_classes = (AllowAny,)
-    def get_queryset(self, *args, **kwargs):
-        queryset = Currency.objects.all()
-        query = self.request.GET.get("value")
-        print("queryyyyyyyy", query)
-        query2 = self.request.GET.get("date")
-        print("2222222", query2)
+# class PriceView(generics.ListCreateAPIView):
+#     serializer_class = CurrencySerializer
+#     permission_classes = (AllowAny,)
+#     def get_queryset(self, *args, **kwargs):
+#         queryset = Currency.objects.all()
+#         query = self.request.GET.get("value")
+#         print("queryyyyyyyy", query)
+#         query2 = self.request.GET.get("date")
+#         print("2222222", query2)
         #print("code/////", self.get_queryset())
         # if query:
         #     queryset= queryset.filter(
@@ -49,31 +50,82 @@ class PriceView(generics.ListCreateAPIView):
         #     ).distinct()
         # return queryset
 
-class CurrencyDetailView(generics.ListCreateAPIView):
-    serializer_class = CurrencySerializer
-    permission_classes = (AllowAny,)
+# class CurrencyDetailView(generics.ListCreateAPIView):
+#     serializer_class = CurrencySerializer
+#     permission_classes = (AllowAny,)
+#
+#     def get(self, request, code):
+#         currency = Currency.objects.get(code=code)
+#         currency_serializer = CurrencySerializer(currency)
+#         return Response(currency_serializer.data)
+#
+# class CurrencyView(generics.ListCreateAPIView):
+#
+#     serializer_class = CurrencySerializer
+#     permission_classes = (AllowAny,)
+#
+#     def get_queryset(self, *args, **kwargs):
+#
+#         queryset = Currency.objects.all()
+#         query = self.request.GET.get("currency")
+#         print("queryyyyyyyy", query)
+#         query2 = self.request.GET.get("code")
+#         print("2222222", query2)
+#         #print("code/////", self.get_queryset())
+#         if query:
+#             queryset= queryset.filter(
+#             Q(code__icontains=query)
+#             ).distinct()
+#
+#         return queryset
 
-    def get(self, request, code):
-        currency = Currency.objects.get(code=code)
-        currency_serializer = CurrencySerializer(currency)
-        return Response(currency_serializer.data)
 
 class CurrencyView(generics.ListCreateAPIView):
-
     serializer_class = CurrencySerializer
     permission_classes = (AllowAny,)
 
     def get_queryset(self, *args, **kwargs):
 
-        queryset = Currency.objects.all()
-        query = self.request.GET.get("currency")
-        print("queryyyyyyyy", query)
-        query2 = self.request.GET.get("code")
-        print("2222222", query2)
-        #print("code/////", self.get_queryset())
-        if query:
-            queryset= queryset.filter(
-            Q(code__icontains=query)
-            ).distinct()
+        return Date.objects.filter(curr__code=self.request.GET.get('currency'))
 
-        return queryset
+class PriceView(generics.ListCreateAPIView):
+    print("++++++++++++entra++++++++++++")
+    serializer_class = CurrencySerializer
+    permission_classes = (AllowAny,)
+
+    def get_queryset(self, *args, **kwargs):
+        print("++++++++++++entra2++++++++++++")
+        print("ESTO ES LO Q TIENE___ CURRENCY____: ", self.request.GET.get('currency'))
+        print("ESTO ES LO Q TIENE___ DATE____: ", self.request.GET.get('date'))
+        return Date.objects.filter(
+            curr__code=self.request.GET.get(
+                'currency'
+            )
+        ).filter(
+            curr__code=self.request.GET.get(
+                'date'
+            )
+        )
+        return "hols"
+
+
+    # def list(self,request):
+    #     queryset = Date.objects.filter(curr__code=request.GET.get('currency'))
+    #     serializer = CurrencySerializer(queryset, many=True)
+    #     return Response(serializer.data)
+
+# class CurrencyDetailView(generics.ListCreateAPIView):
+#     serializer_class = CurrencySerializer
+#     permission_classes = (AllowAny,)
+#     print("____-entro__a la clase___")
+#     def list(self, request):
+        #queryset = Date.objects.filter(curr__code=request.GET.get('currency'))
+        #currency = Currency.objects.get(code=code)
+
+        # print("cantidad_____________:", request.GET.get('value'))
+        #print("tipo moneda:", request.GET.get('currency'))
+        #print("fecha: ", request.GET.get('date'))
+        #print("________RESULTADO________:", queryset)
+
+        #currency_serializer = CurrencySerializer(currency)
+        # return Response(currency_serializer.data)
