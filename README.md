@@ -1,4 +1,4 @@
-# CFOremoto Backend Test Boilerplate
+
 ## Local install
 * Create a new virtualenv
 * Inside the virtualenv, run following commands in order to run the project
